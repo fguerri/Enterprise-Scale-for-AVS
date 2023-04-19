@@ -171,6 +171,7 @@
                                     "label": "Connect AVS Private to VNet",
                                     "defaultValue": "deploy-er-connection",
                                     "toolTip": "",
+                                    "disabled": true,
                                     "constraints": {
                                         "required": true,
                                         "allowedValues": [
