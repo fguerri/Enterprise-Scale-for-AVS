@@ -172,7 +172,7 @@
                                     "elements": [
                                         {
                                             "name": "onprem-connectivity-option",
-                                            "type": "Microsoft.Common.RadioButton",
+                                            "type": "Microsoft.Common.RadioButtons",
                                             "visible": true,
                                             "label": "Connect AVS Private to VNet"
                                         }
