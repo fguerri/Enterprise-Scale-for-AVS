@@ -165,7 +165,7 @@
                             "label": "VNet connectivity option",
                             "elements": [
                                 {
-                                    "name": "vnet-connectivity-section",
+                                    "name": "vnet-connectivity-option",
                                     "type": "Microsoft.Common.Section",
                                     "visible": true,
                                     "label": "VNet connectivity option",
