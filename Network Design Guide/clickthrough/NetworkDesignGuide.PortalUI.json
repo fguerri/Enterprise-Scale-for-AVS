@@ -165,44 +165,31 @@
                             "label": "VNet connectivity option",
                             "elements": [
                                 {
-                                    "name": "vnet-connectivity-option-1",
-                                    "type": "Microsoft.Common.OptionsGroup",
+                                    "name": "vnet-connectivity-no-ertransit",
+                                    "type": "Microsoft.Common.TextBlock",
                                     "visible": "[not(equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ertransit'))]",
-                                    "label": "Connect AVS Private to VNet",
-                                    "defaultValue": "deploy-er-connection",
-                                    "toolTip": "",
-                                    "disabled": true,
-                                    "constraints": {
-                                        "required": true,
-                                        "allowedValues": [
-                                            {
-                                                "label": "Create ExpressRoute Gateway connection with AVS managed circuit",
-                                                "value": "deploy-er-connection",
-                                                "disabled": true
-                                            },
-                                            {
-                                                "label": "teest",
-                                                "value": "deploy-er-connection-test",
-                                                "disabled": false
-                                            }
-                                        ]
+                                    "options": {
+                                        "text": "Connect AVS Private Cloud to this ExpressRoute Virtual Network Gateway:"
                                     }
                                 },
                                 {
-                                    "name": "vnet-connectivity-option-2",
+                                    "name": "erGwSelector",
+                                    "type": "Microsoft.Solutions.ResourceSelector",
+                                    "label": "Select ExpressRoute Virtual Network Gateway",
+                                    "resourceType": "Microsoft.Network/virtualNetworkGateways",
+                                    "visible": "[not(equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ertransit'))]",
+                                    "options": {
+                                      "filter": {
+                                      }
+                                    }
+                                },
+                                {
+                                    "name": "vnet-connectivity-ertransit",
                                     "type": "Microsoft.Common.OptionsGroup",
                                     "visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ertransit')]",
-                                    "label": "Leverage connectivity for on-onprem",
-                                    "defaultValue": "do-nothing",
-                                    "toolTip": "",
-                                    "constraints": {
-                                        "required": true,
-                                        "allowedValues": [
-                                            {
-                                                "label": "VNet connectivity already provided by on-prem connectivity architecture",
-                                                "value": "do-nothing"
-                                            }
-                                        ]
+                                    "type": "Microsoft.Common.TextBlock",
+                                    "options": {
+                                        "text": "Connectivity to Azure Virtual Networks already provided by the selected onprem connectivity option."
                                     }
                                 }
                             ]
@@ -217,7 +204,70 @@
                         "postValidation": "Done"
                     },
                     "bladeTitle": "Inbound Internet Connectivity",
-                    "elements": []
+                    "elements": [
+                        {
+                            "name": "internet-inbound-connectivity-section",
+                            "type": "Microsoft.Common.Section",
+                            "visible": true,
+                            "label": "Inbound Internet Connectivity",
+                            "elements": [
+                                {
+                                    "name": "internet-inbound-connectivity-option",
+                                    "type": "Microsoft.Common.OptionsGroup",
+                                    "visible": true,
+                                    "label": "Select an onprem connectivity option",
+                                    "defaultValue": "azure-pip",
+                                    "toolTip": "",
+                                    "constraints": {
+                                        "required": true,
+                                        "allowedValues": [
+                                            {
+                                                "label": "Expose AVS applications on a Public IP associated to an edge device in an Azure Virtual Network",
+                                                "value": "azure-pip"
+                                            },
+                                            {
+                                                "label": "Expose AVS applications on a Public IP associated to an edge device in AVS",
+                                                "value": "nsxt-pip"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "internet-inbound-connectivity-azure-nva-section",
+                            "type": "Microsoft.Common.Section",
+                            "visible": "[equals(steps('internet-inbound-connectivity').internet-inbound-connectivity-section.internet-inbound-connectivity-option, 'azure-pip')]",
+                            "label": "Deploy NVAs in Azure",
+                            "elements": [
+                                {
+                                    "name": "internet-inbound-connectivity-nva-option",
+                                    "type": "Microsoft.Common.OptionsGroup",
+                                    "visible": true,
+                                    "label": "Select which NVA to deploy in Azure",
+                                    "defaultValue": "none",
+                                    "toolTip": "",
+                                    "constraints": {
+                                        "required": true,
+                                        "allowedValues": [
+                                            {
+                                                "label": "Azure Firewall",
+                                                "value": "azfw"
+                                            },
+                                            {
+                                                "label": "Azure Application Gateway",
+                                                "value": "appgw"
+                                            },
+                                            {
+                                                "label": "I will deploy an NVA later/I will use a third party NVA",
+                                                "value": "none"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     "name": "internet-outbound-connectivity",
@@ -227,7 +277,78 @@
                         "postValidation": "Done"
                     },
                     "bladeTitle": "Outbound Internet Connectivity",
-                    "elements": []
+                    "elements": [
+                        {
+                            "name": "internet-outbound-connectivity-section",
+                            "type": "Microsoft.Common.Section",
+                            "visible": true,
+                            "label": "Outbound Internet Connectivity",
+                            "elements": [
+                                {
+                                    "name": "internet-outbound-connectivity-nva-option",
+                                    "type": "Microsoft.Common.OptionsGroup",
+                                    "visible": "[equals(steps('internet-inbound-connectivity').internet-inbound-connectivity-section.internet-inbound-connectivity-option, 'azure-pip')]",
+                                    "label": "Choose an internet outbound connectivity option",
+                                    "defaultValue": "managed-pip",
+                                    "toolTip": "",
+                                    "constraints": {
+                                        "required": true,
+                                        "allowedValues": [
+                                            {
+                                                "label": "Internet edge device in Azure",
+                                                "value": "azure-pip"
+                                            }, 
+                                            {
+                                                "label": "Internet edge device in AVS (Public IP to the NSX-T edge)",
+                                                "value": "nsxt-pip"
+                                            },
+                                            {
+                                                "label": "AVS Managed SNAT",
+                                                "value": "managed-pip"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "internet-outbound-connectivity-nsxt-pip",
+                                    "type": "Microsoft.Common.TextBlock",
+                                    "visible": "[equals(steps('internet-inbound-connectivity').internet-inbound-connectivity-section.internet-inbound-connectivity-option, 'nsxt-pip')]",
+                                    "options": {
+                                        "text": "As you have selected to use use Public IPs on the NSX-T edge for inbound internet connectivity, you must use them for outbound internet connectivity too."
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "internet-outbound-connectivity-ars-section",
+                            "type": "Microsoft.Common.Section",
+                            "visible": "[equals(steps('internet-outbound-connectivity').internet-outbound-connectivity-section.internet-outbound-connectivity-nva-option, 'azure-pip')]",
+                            "label": "Default Route Origination",
+                            "elements": [
+                                {
+                                    "name": "internet-outbound-connectivity-ars-option",
+                                    "type": "Microsoft.Common.OptionsGroup",
+                                    "visible": true,
+                                    "label": "Default Route Origination",
+                                    "defaultValue": "none",
+                                    "toolTip": "",
+                                    "constraints": {
+                                        "required": true,
+                                        "allowedValues": [
+                                            {
+                                                "label": "Deploy Azure Route Server",
+                                                "value": "ars"
+                                            }, 
+                                            {
+                                                "label": "I will deploy Azure Route Server later/I have already deployed Azure Route Server",
+                                                "value": "none"
+                                            }
+                                        ]
+                                    }
+                                }   
+                            ]
+                        }
+                    ]
                 }
             ]
         },
