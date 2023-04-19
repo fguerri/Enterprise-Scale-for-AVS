@@ -27,7 +27,7 @@
                             "type": "Microsoft.Common.OptionsGroup",
                             "visible": true,
                             "label": "Select an onprem connectivity option",
-                            "defaultValue": "Yes",
+                            "defaultValue": "ergr",
                             "toolTip": "",
                             "constraints": {
                                 "required": true,
@@ -52,12 +52,11 @@
                             "type": "Microsoft.Common.Section",
                             "visible": "[equals(steps('onprem-connectivity').onprem-connectivity-option, 'vpn')]",
                             "label": "Select an IPSec VPN option",
-                            "defaultValue": "Yes",
                             "elements": [
                                 {
                                     "name": "ipsec-underlay-option",
                                     "type": "Microsoft.Common.OptionsGroup",
-                                    "visible": true,
+                                    
                                     "label": "Select the underlay for the IPSec VPN",
                                     "defaultValue": "internet",
                                     "toolTip": "",
