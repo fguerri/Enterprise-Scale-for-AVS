@@ -63,7 +63,7 @@
                                         "required": true,
                                         "allowedValues": [
                                             {
-                                                "label": "internet",
+                                                "label": "Internet",
                                                 "value": "internet"
                                             },
                                             {
@@ -73,6 +73,46 @@
                                             {
                                                 "label": "ExpressRoute Private Peering",
                                                 "value": "erpp"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "Customer-managed VNet or Virtual WAN Hub",
+                                    "type": "Microsoft.Common.OptionsGroup",
+                                    "label": "Select where you want to host the VPN device in Azure",
+                                    "defaultValue": "vnet",
+                                    "toolTip": "",
+                                    "constraints": {
+                                        "required": true,
+                                        "allowedValues": [
+                                            {
+                                                "label": "Customer-managed Virtual Network",
+                                                "value": "vnet"
+                                            },
+                                            {
+                                                "label": "Virtual WAN Hub",
+                                                "value": "vwan"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "VPN Device",
+                                    "type": "Microsoft.Common.OptionsGroup",
+                                    "label": "Select the underlay for the IPSec VPN",
+                                    "defaultValue": "azurevpngateway",
+                                    "toolTip": "",
+                                    "constraints": {
+                                        "required": true,
+                                        "allowedValues": [
+                                            {
+                                                "label": "Azure VPN Gateway",
+                                                "value": "azurevpngateway"
+                                            },
+                                            {
+                                                "label": "Third-party NVA",
+                                                "value": "nva"
                                             }
                                         ]
                                     }
