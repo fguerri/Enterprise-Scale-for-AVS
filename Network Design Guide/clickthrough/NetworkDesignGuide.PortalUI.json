@@ -185,7 +185,7 @@
                                     "name": "vnet-connectivity-option-2",
                                     "type": "Microsoft.Common.OptionsGroup",
                                     "visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ertransit')]",
-                                    "label": "Connect AVS Private to VNet",
+                                    "label": "Leverage connectivity for on-onprem",
                                     "defaultValue": "do-nothing",
                                     "toolTip": "",
                                     "constraints": {
