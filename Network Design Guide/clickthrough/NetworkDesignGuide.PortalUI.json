@@ -56,7 +56,6 @@
                                 {
                                     "name": "ipsec-underlay-option",
                                     "type": "Microsoft.Common.OptionsGroup",
-                                    
                                     "label": "Select the underlay for the IPSec VPN",
                                     "defaultValue": "internet",
                                     "toolTip": "",
