@@ -171,7 +171,7 @@
                                     "label": "VNet connectivity option",
                                     "elements": [
                                         {
-                                            "name": "onprem-connectivity-option",
+                                            "name": "vnet-connectivity-option-1",
                                             "type": "Microsoft.Common.OptionsGroup",
                                             "visible": "[not(equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ertransit'))]",
                                             "label": "Connect AVS Private to VNet",
@@ -188,7 +188,7 @@
                                             }
                                         },
                                         {
-                                            "name": "onprem-connectivity-option",
+                                            "name": "vnet-connectivity-option-2",
                                             "type": "Microsoft.Common.OptionsGroup",
                                             "visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ertransit')]",
                                             "label": "Connect AVS Private to VNet",
