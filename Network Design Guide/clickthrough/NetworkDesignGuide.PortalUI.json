@@ -15,46 +15,46 @@
                     "bladeTitle": "Connectivity with on-prem sites",
                     "elements": [
                         {
-                            "name": "onprem-connectivity-infobox",
-                            "type": "Microsoft.Common.InfoBox",
-                            "options": {
-                                "text": "Select an option for onprem connectivity",
-                                "style": "Info"
-                            }
-                        },
-                        {
-                            "name": "onprem-connectivity-option",
-                            "type": "Microsoft.Common.OptionsGroup",
+                            "name": "onprem-connectivity-section",
+                            "type": "Microsoft.Common.Section",
                             "visible": true,
                             "label": "Select an onprem connectivity option",
-                            "defaultValue": "ergr",
-                            "toolTip": "",
-                            "constraints": {
-                                "required": true,
-                                "allowedValues": [
-                                    {
-                                        "label": "ExpressRoute Global Reach",
-                                        "value": "ergr"
-                                    },
-                                    {
-                                        "label": "IPSec VPN",
-                                        "value": "vpn"
-                                    },
-                                    {
-                                        "label": "Transit over ExpressRoute private peering",
-                                        "value": "ertransit"
+                            "elements": [
+                                {
+                                    "name": "onprem-connectivity-option",
+                                    "type": "Microsoft.Common.OptionsGroup",
+                                    "visible": true,
+                                    "label": "Select an onprem connectivity option",
+                                    "defaultValue": "ergr",
+                                    "toolTip": "",
+                                    "constraints": {
+                                        "required": true,
+                                        "allowedValues": [
+                                            {
+                                                "label": "ExpressRoute Global Reach",
+                                                "value": "ergr"
+                                            },
+                                            {
+                                                "label": "IPSec VPN",
+                                                "value": "vpn"
+                                            },
+                                            {
+                                                "label": "Transit over ExpressRoute private peering",
+                                                "value": "ertransit"
+                                            }
+                                        ]
                                     }
-                                ]
-                            }
+                                }
+                            ]
                         },
                         {
-                            "name": "ipsec-option",
+                            "name": "ipsec-section",
                             "type": "Microsoft.Common.Section",
                             "visible": "[equals(steps('onprem-connectivity').onprem-connectivity-option, 'vpn')]",
                             "label": "Select an IPSec VPN option",
                             "elements": [
                                 {
-                                    "name": "underlay",
+                                    "name": "underlay-option",
                                     "type": "Microsoft.Common.OptionsGroup",
                                     "label": "Select the underlay for the IPSec VPN",
                                     "defaultValue": "internet",
@@ -78,7 +78,7 @@
                                     }
                                 },
                                 {
-                                    "name": "Customer-managed VNet or Virtual WAN Hub",
+                                    "name": "vnet-option",
                                     "type": "Microsoft.Common.OptionsGroup",
                                     "label": "Select where you want to host the VPN device in Azure",
                                     "defaultValue": "vnet",
@@ -98,7 +98,7 @@
                                     }
                                 },
                                 {
-                                    "name": "VPN Device",
+                                    "name": "device-option",
                                     "type": "Microsoft.Common.OptionsGroup",
                                     "label": "Select the underlay for the IPSec VPN",
                                     "defaultValue": "azurevpngateway",
@@ -125,8 +125,8 @@
         },
         "outputs": {
             "parameters": {
-                "onprem-connectivity-option": "[steps('onprem-connectivity').onprem-connectivity-option]",
-                "ipsec-option": "[steps('onprem-connectivity').ipsec-option.underlay]"           
+                "onprem-connectivity-option": "[steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option]",
+                "ipsec-option": "[steps('onprem-connectivity').ipsec-section.underlay-option]"           
             },
             "kind": "Subscription"
         }
