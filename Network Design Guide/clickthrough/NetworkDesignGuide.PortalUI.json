@@ -54,7 +54,7 @@
                             "label": "Select an IPSec VPN option",
                             "elements": [
                                 {
-                                    "name": "ipsec-underlay-option",
+                                    "name": "underlay",
                                     "type": "Microsoft.Common.OptionsGroup",
                                     "label": "Select the underlay for the IPSec VPN",
                                     "defaultValue": "internet",
@@ -86,7 +86,7 @@
         "outputs": {
             "parameters": {
                 "onprem-connectivity-option": "[steps('onprem-connectivity').onprem-connectivity-option]",
-                "ipsec-option": "[steps('onprem-connectivity').ipsec-underlay-option]"           
+                "ipsec-option": "[steps('onprem-connectivity').ipsec-option.underlay]"           
             },
             "kind": "Subscription"
         }
