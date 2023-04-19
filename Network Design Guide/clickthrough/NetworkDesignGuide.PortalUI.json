@@ -165,46 +165,38 @@
                             "label": "VNet connectivity option",
                             "elements": [
                                 {
-                                    "name": "vnet-connectivity-option",
-                                    "type": "Microsoft.Common.Section",
-                                    "visible": true,
-                                    "label": "VNet connectivity option",
-                                    "elements": [
-                                        {
-                                            "name": "vnet-connectivity-option-1",
-                                            "type": "Microsoft.Common.OptionsGroup",
-                                            "visible": "[not(equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ertransit'))]",
-                                            "label": "Connect AVS Private to VNet",
-                                            "defaultValue": "deploy-er-connection",
-                                            "toolTip": "",
-                                            "constraints": {
-                                                "required": true,
-                                                "allowedValues": [
-                                                    {
-                                                        "label": "Create ExpressRoute Gateway connection with AVS managed circuit",
-                                                        "value": "deploy-er-connection"
-                                                    }
-                                                ]
+                                    "name": "vnet-connectivity-option-1",
+                                    "type": "Microsoft.Common.OptionsGroup",
+                                    "visible": "[not(equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ertransit'))]",
+                                    "label": "Connect AVS Private to VNet",
+                                    "defaultValue": "deploy-er-connection",
+                                    "toolTip": "",
+                                    "constraints": {
+                                        "required": true,
+                                        "allowedValues": [
+                                            {
+                                                "label": "Create ExpressRoute Gateway connection with AVS managed circuit",
+                                                "value": "deploy-er-connection"
                                             }
-                                        },
-                                        {
-                                            "name": "vnet-connectivity-option-2",
-                                            "type": "Microsoft.Common.OptionsGroup",
-                                            "visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ertransit')]",
-                                            "label": "Connect AVS Private to VNet",
-                                            "defaultValue": "do-nothing",
-                                            "toolTip": "",
-                                            "constraints": {
-                                                "required": true,
-                                                "allowedValues": [
-                                                    {
-                                                        "label": "VNet connectivity already provided by on-prem connectivity architecture",
-                                                        "value": "do-nothing"
-                                                    }
-                                                ]
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "vnet-connectivity-option-2",
+                                    "type": "Microsoft.Common.OptionsGroup",
+                                    "visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ertransit')]",
+                                    "label": "Connect AVS Private to VNet",
+                                    "defaultValue": "do-nothing",
+                                    "toolTip": "",
+                                    "constraints": {
+                                        "required": true,
+                                        "allowedValues": [
+                                            {
+                                                "label": "VNet connectivity already provided by on-prem connectivity architecture",
+                                                "value": "do-nothing"
                                             }
-                                        }
-                                    ]
+                                        ]
+                                    }
                                 }
                             ]
                         }
