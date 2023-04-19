@@ -50,7 +50,7 @@
                         {
                             "name": "ipsec-section",
                             "type": "Microsoft.Common.Section",
-                            "visible": "[equals(steps('onprem-connectivity').onprem-connectivity-option, 'vpn')]",
+                            "visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'vpn')]",
                             "label": "Select an IPSec VPN option",
                             "elements": [
                                 {
@@ -113,6 +113,34 @@
                                             {
                                                 "label": "Third-party NVA",
                                                 "value": "nva"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "ertransit-section",
+                            "type": "Microsoft.Common.Section",
+                            "visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ertransit')]",
+                            "label": "Select an ExpressRoute transit option",
+                            "elements": [
+                                {
+                                    "name": "ertransit-option",
+                                    "type": "Microsoft.Common.OptionsGroup",
+                                    "label": "Select the ER transit architecture",
+                                    "defaultValue": "single-vnet",
+                                    "toolTip": "",
+                                    "constraints": {
+                                        "required": true,
+                                        "allowedValues": [
+                                            {
+                                                "label": "Single VNet with supernet advertisment",
+                                                "value": "single-vnet"
+                                            },
+                                            {
+                                                "label": "Auxiliary VNet",
+                                                "value": "aux-vnet"
                                             }
                                         ]
                                     }
