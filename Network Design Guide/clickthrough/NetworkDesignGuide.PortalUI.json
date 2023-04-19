@@ -53,24 +53,33 @@
                             "visible": "[equals(steps('onprem-connectivity').onprem-connectivity-option, 'vpn')]",
                             "label": "Select an IPSec VPN option",
                             "defaultValue": "Yes",
-                            "toolTip": "",
-                            "constraints": {
-                                "required": true,
-                                "allowedValues": [
-                                    {
-                                        "label": "ExpressRoute Global Reach",
-                                        "value": "ergr"
-                                    },
-                                    {
-                                        "label": "IPSec VPN",
-                                        "value": "vpn"
-                                    },
-                                    {
-                                        "label": "Transit over ExpressRoute private peering",
-                                        "value": "ertransit"
+                            "elements": [
+                                {
+                                    "name": "ipsec-underlay-option",
+                                    "type": "Microsoft.Common.OptionsGroup",
+                                    "visible": true,
+                                    "label": "Select the underlay for the IPSec VPN",
+                                    "defaultValue": "internet",
+                                    "toolTip": "",
+                                    "constraints": {
+                                        "required": true,
+                                        "allowedValues": [
+                                            {
+                                                "label": "internet",
+                                                "value": "internet"
+                                            },
+                                            {
+                                                "label": "ExpressRoute Microsoft Peering",
+                                                "value": "ermp"
+                                            },
+                                            {
+                                                "label": "ExpressRoute Private Peering",
+                                                "value": "erpp"
+                                            }
+                                        ]
                                     }
-                                ]
-                            }
+                                }
+                            ]
                         }
                     ]
                 }
