@@ -87,7 +87,7 @@
         "outputs": {
             "parameters": {
                 "onprem-connectivity-option": "[steps('onprem-connectivity').onprem-connectivity-option]",
-                "ipsec-option": "[steps('onprem-connectivity').ipsec-option]"           
+                "ipsec-option": "[steps('onprem-connectivity').ipsec-underlay-option]"           
             },
             "kind": "Subscription"
         }
