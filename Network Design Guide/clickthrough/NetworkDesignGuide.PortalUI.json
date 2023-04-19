@@ -148,6 +148,59 @@
                             ]
                         }
                     ]
+                },
+                {
+                    "name": "vnet-connectivity",
+                    "label": "Connectivity with Azure Virtual Networks",
+                    "subLabel": {
+                        "preValidation": "preValid",
+                        "postValidation": "Done"
+                    },
+                    "bladeTitle": "Connectivity with Azure Virtual Networks",
+                    "elements": [
+                        {
+                            "name": "vnet-connectivity-section",
+                            "type": "Microsoft.Common.Section",
+                            "visible": true,
+                            "label": "VNet connectivity option",
+                            "elements": [
+                                {
+                                    "name": "vnet-connectivity-section",
+                                    "type": "Microsoft.Common.Section",
+                                    "visible": true,
+                                    "label": "VNet connectivity option",
+                                    "elements": [
+                                        {
+                                            "name": "onprem-connectivity-option",
+                                            "type": "Microsoft.Common.RadioButton",
+                                            "visible": true,
+                                            "label": "Connect AVS Private to VNet"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "internet-inbound-connectivity",
+                    "label": "Inbound Internet Connectivity",
+                    "subLabel": {
+                        "preValidation": "perValid",
+                        "postValidation": "Done"
+                    },
+                    "bladeTitle": "Inbound Internet Connectivity",
+                    "elements": []
+                },
+                {
+                    "name": "internet-outbound-connectivity",
+                    "label": "Outbound Internet Connectivity",
+                    "subLabel": {
+                        "preValidation": "perValid",
+                        "postValidation": "Done"
+                    },
+                    "bladeTitle": "Outbound Internet Connectivity",
+                    "elements": []
                 }
             ]
         },
