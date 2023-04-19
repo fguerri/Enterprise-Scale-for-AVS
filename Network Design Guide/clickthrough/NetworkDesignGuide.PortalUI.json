@@ -49,7 +49,7 @@
                         },
                         {
                             "name": "ipsec-option",
-                            "type": "Microsoft.Common.OptionsGroup",
+                            "type": "Microsoft.Common.Section",
                             "visible": "[equals(steps('onprem-connectivity').onprem-connectivity-option, 'vpn')]",
                             "label": "Select an IPSec VPN option",
                             "defaultValue": "Yes",
