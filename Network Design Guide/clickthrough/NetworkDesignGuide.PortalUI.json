@@ -179,6 +179,11 @@
                                                 "label": "Create ExpressRoute Gateway connection with AVS managed circuit",
                                                 "value": "deploy-er-connection",
                                                 "disabled": true
+                                            },
+                                            {
+                                                "label": "teest",
+                                                "value": "deploy-er-connection-test",
+                                                "disabled": false
                                             }
                                         ]
                                     }
