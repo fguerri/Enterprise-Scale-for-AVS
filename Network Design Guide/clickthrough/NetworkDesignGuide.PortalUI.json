@@ -177,7 +177,8 @@
                                         "allowedValues": [
                                             {
                                                 "label": "Create ExpressRoute Gateway connection with AVS managed circuit",
-                                                "value": "deploy-er-connection"
+                                                "value": "deploy-er-connection",
+                                                "disabled": true
                                             }
                                         ]
                                     }
