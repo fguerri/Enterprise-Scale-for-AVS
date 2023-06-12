@@ -138,6 +138,18 @@
                             "label": "Select an ExpressRoute transit option",
                             "elements": [
                                 {
+                                    "name": "onprem-connectivity-ertransit-textblock",
+                                    "type": "Microsoft.Common.TextBlock",
+                                    "visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ertransit')]",
+                                    "options": {
+                                        "text": "Two implementation options exist: (1) Single VNet. When using this option, both the customer managed and the Azure VMware Solution managed circuits are connected to the same ExpressRoute Gateway; (2) Auxiliary transit VNet. When using this option, the customer managed ExpressRoute circuit that provides connectivity to the on-premises site is connected to the (typically pre-existing) ExpressRoute Gateway in the hub VNet. The Azure VMware Solution managed circuit is connected to a different ExpressRoute Gateway deployed in an auxiliary transit VNet.",
+                                        "link": {
+                                            "label": "Learn more",
+                                            "uri": "https://github.com/Azure/Enterprise-Scale-for-AVS/blob/main/Network%20Design%20Guide/onprem-connectivity.md#transit-over-expressroute-private-peering"
+                                        }
+                                    } 
+                                },
+                                {
                                     "name": "ertransit-option",
                                     "type": "Microsoft.Common.OptionsGroup",
                                     "label": "Select the ER transit architecture",
