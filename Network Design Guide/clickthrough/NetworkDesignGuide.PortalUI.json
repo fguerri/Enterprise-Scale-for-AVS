@@ -51,7 +51,7 @@
                             "name": "ergr-section",
                             "type": "Microsoft.Common.Section",
                             "visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ergr')]",
-                            "label": "Select an IPSec VPN option",
+                            "label": "ExpressRoute Global Reach for connectivity with on-prem sites",
                             "elements": [
                                 {
                                     "name": "onprem-connectivity-ergr-textblock",
