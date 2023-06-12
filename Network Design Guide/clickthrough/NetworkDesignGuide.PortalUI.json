@@ -54,6 +54,18 @@
                             "label": "Select an IPSec VPN option",
                             "elements": [
                                 {
+                                    "name": "onprem-connectivity-vpn-textblock",
+                                    "type": "Microsoft.Common.TextBlock",
+                                    "visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'vpn')]",
+                                    "options": {
+                                        "text": "Connectivity between Azure VMware Solution private clouds and on-premises sites can be implemented by routing traffic through a “transit” VNet in Azure. The transit VNet is connected to the Azure VMware Solution private cloud through the managed ExpressRoute circuit. The transit VNet is connected to the on-premises site using an IPSec VPN. Implementing IPSec connectivity between on-premises sites and transit VNets entails three design decisions: (1) Which network service to use as the underlay for the IPSec tunnel. The available options are internet connectivity, ExpressRoute “Microsoft” peering and ExpressRoute “Private” peering; (2) Where to host the virtual devices that terminate the IPSec tunnel on the Azure side. The available options are using a customer-managed VNet or a Virtual WAN hub; (3) Which virtual device terminates the IPSec tunnel on the Azure side. The choice of the device also determines the required Azure configuration to route traffic between the IPSec tunnel and the Azure VMware Solution managed circuit. The available options are native Azure VPN gateway or 3rd party IPSec NVAs.",
+                                        "link": {
+                                            "label": "Learn more",
+                                            "uri": "https://github.com/Azure/Enterprise-Scale-for-AVS/blob/main/Network%20Design%20Guide/onprem-connectivity.md#ipsec-vpns"
+                                        }
+                                    } 
+                                },
+                                {
                                     "name": "underlay-option",
                                     "type": "Microsoft.Common.OptionsGroup",
                                     "label": "Select the underlay for the IPSec VPN",
@@ -148,7 +160,7 @@
                             ]
                         },
                         {
-                            "name": "onprem-connectivity-textblock",
+                            "name": "onprem-connectivity-ergr-textblock",
                             "type": "Microsoft.Common.TextBlock",
                             "visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ergr')]",
                             "options": {
