@@ -48,9 +48,9 @@
                             ]
                         },
                         {
-                            "name": "ipsec-section",
+                            "name": "ergr-section",
                             "type": "Microsoft.Common.Section",
-                            "visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'vpn')]",
+                            "visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ergr')]",
                             "label": "Select an IPSec VPN option",
                             "elements": [
                                 {
