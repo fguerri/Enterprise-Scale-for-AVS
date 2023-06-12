@@ -21,18 +21,6 @@
                             "label": "Select an onprem connectivity option",
                             "elements": [
                                 {
-                                    "name": "onprem-connectivity-textblock",
-                                    "type": "Microsoft.Common.TextBlock",
-                                    "visible": true,
-                                    "options": {
-                                        "text": "Select an option for connectivity with on-premises sites.",
-                                        "link": {
-                                            "label": "Learn more",
-                                            "uri": "https://github.com/Azure/Enterprise-Scale-for-AVS/blob/main/Network%20Design%20Guide/onprem-connectivity.md"
-                                        }
-                                    } 
-                                },
-                                {
                                     "name": "onprem-connectivity-option",
                                     "type": "Microsoft.Common.OptionsGroup",
                                     "visible": true,
@@ -158,6 +146,18 @@
                                     }
                                 }
                             ]
+                        },
+                        {
+                            "name": "onprem-connectivity-textblock",
+                            "type": "Microsoft.Common.TextBlock",
+                            "visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ergr')]",
+                            "options": {
+                                "text": "ExpressRoute Global Reach is the default hybrid connectivity option supported by Azure VMware Solution. It provides plain layer-3 connectivity between a private cloud and a remote site connected to a customer-managed ExpressRoute circuit, with minimal complexity. The customer-managed ExpressRoute circuit can be used to connect to Azure native services too. However it is possible, for security or bandwidth reservations purposes, to deploy a separate customer-managed circuit exclusively dedicated to Azure VMware Solution traffic.",
+                                "link": {
+                                    "label": "Learn more",
+                                    "uri": "https://github.com/Azure/Enterprise-Scale-for-AVS/blob/main/Network%20Design%20Guide/onprem-connectivity.md#expressroute-global-reach"
+                                }
+                            } 
                         }
                     ]
                 },
