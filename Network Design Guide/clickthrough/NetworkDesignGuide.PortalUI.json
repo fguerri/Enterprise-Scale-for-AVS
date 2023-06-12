@@ -21,6 +21,18 @@
                             "label": "Select an onprem connectivity option",
                             "elements": [
                                 {
+                                    "name": "onprem-connectivity-textblock",
+                                    "type": "Microsoft.Common.TextBlock",
+                                    "visible": true,
+                                    "options": {
+                                        "text": "Select an option for connectivity with on-premises sites.",
+                                        "link": {
+                                            "label": "Learn more",
+                                            "uri": "https://github.com/Azure/Enterprise-Scale-for-AVS/blob/main/Network%20Design%20Guide/onprem-connectivity.md"
+                                        }
+                                    } 
+                                },
+                                {
                                     "name": "onprem-connectivity-option",
                                     "type": "Microsoft.Common.OptionsGroup",
                                     "visible": true,
