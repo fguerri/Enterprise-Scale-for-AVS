@@ -213,7 +213,11 @@
                                     "type": "Microsoft.Common.TextBlock",
                                     "visible": "[not(equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ertransit'))]",
                                     "options": {
-                                        "text": "Connect AVS Private Cloud to this ExpressRoute Virtual Network Gateway:"
+                                        "text": "Connect AVS Private Cloud to this ExpressRoute Virtual Network Gateway:",
+                                        "link": {
+                                            "label": "Learn more",
+                                            "uri": "https://github.com/Azure/Enterprise-Scale-for-AVS/blob/main/Network%20Design%20Guide/vnet-connectivity.md#design-phase-2-connectivity-with-azure-virtual-networks"
+                                        }
                                     }
                                 },
                                 {
