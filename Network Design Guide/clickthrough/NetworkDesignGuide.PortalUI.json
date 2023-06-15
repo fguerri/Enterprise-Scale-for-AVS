@@ -303,31 +303,6 @@
                                             "uri": "https://github.com/Azure/Enterprise-Scale-for-AVS/blob/main/Network%20Design%20Guide/internet-inbound-connectivity.md#nvas-for-application-publishing-hosted-in-an-azure-vnet"
                                         }
                                     }
-                                },
-                                {
-                                    "name": "internet-inbound-connectivity-nva-option",
-                                    "type": "Microsoft.Common.OptionsGroup",
-                                    "visible": true,
-                                    "label": "Select which NVA to deploy in Azure",
-                                    "defaultValue": "none",
-                                    "toolTip": "",
-                                    "constraints": {
-                                        "required": true,
-                                        "allowedValues": [
-                                            {
-                                                "label": "Azure Firewall",
-                                                "value": "azfw"
-                                            },
-                                            {
-                                                "label": "Azure Application Gateway",
-                                                "value": "appgw"
-                                            },
-                                            {
-                                                "label": "I will deploy an NVA later/I will use a third party NVA",
-                                                "value": "none"
-                                            }
-                                        ]
-                                    }
                                 }
                             ]
                         },
