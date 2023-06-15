@@ -293,6 +293,18 @@
                             "label": "Deploy NVAs in Azure",
                             "elements": [
                                 {
+                                    "name": "internet-inbound-connectivity-azure-nva-textblock",
+                                    "type": "Microsoft.Common.TextBlock",
+                                    "visible": "[equals(steps('internet-inbound-connectivity').internet-inbound-connectivity-section.internet-inbound-connectivity-option, 'azure-pip')]",
+                                    "options": {
+                                        "text": "Publishing Azure VMware Solution applications via Azure first-party services (Azure Firewall, Azure Application Gateway) or third-party NVAs hosted in a VNet only requires layer-3 connectivity between the VNet and the private cloud. Azure VMware Solution applications are published behind Azure Public IP resources assigned to the first-party service or third-party NVAs. Standalone Public IPs, Public IPs from Public Ip Prefixes or Public IPs from Custom IP Prefixes (BYOIP) can be used.",
+                                        "link": {
+                                            "label": "Learn more",
+                                            "uri": "https://github.com/Azure/Enterprise-Scale-for-AVS/blob/main/Network%20Design%20Guide/internet-inbound-connectivity.md#nvas-for-application-publishing-hosted-in-an-azure-vnet"
+                                        }
+                                    }
+                                },
+                                {
                                     "name": "internet-inbound-connectivity-nva-option",
                                     "type": "Microsoft.Common.OptionsGroup",
                                     "visible": true,
