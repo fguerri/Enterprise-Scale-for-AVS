@@ -332,7 +332,7 @@
                             ]
                         },
                         {
-                            "name": "internet-inbound-connectivity-azure-nva-section",
+                            "name": "internet-inbound-connectivity-avs-nva-section",
                             "type": "Microsoft.Common.Section",
                             "visible": "[equals(steps('internet-inbound-connectivity').internet-inbound-connectivity-section.internet-inbound-connectivity-option, 'nsxt-pip')]",
                             "label": "Deploy NVAs in Azure VMware Solution",
