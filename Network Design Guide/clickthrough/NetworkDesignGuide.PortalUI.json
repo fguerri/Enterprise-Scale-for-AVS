@@ -330,6 +330,26 @@
                                     }
                                 }
                             ]
+                        },
+                        {
+                            "name": "internet-inbound-connectivity-azure-nva-section",
+                            "type": "Microsoft.Common.Section",
+                            "visible": "[equals(steps('internet-inbound-connectivity').internet-inbound-connectivity-section.internet-inbound-connectivity-option, 'nsxt-pip')]",
+                            "label": "Deploy NVAs in Azure VMware Solution",
+                            "elements": [
+                                {
+                                    "name": "internet-inbound-connectivity-avs-nva-textblock",
+                                    "type": "Microsoft.Common.TextBlock",
+                                    "visible": "[equals(steps('internet-inbound-connectivity').internet-inbound-connectivity-section.internet-inbound-connectivity-option, 'nsxt-pip')]",
+                                    "options": {
+                                        "text": "Publishing Azure VMware Solution applications via third-party NVAs deployed on Azure VMware Solution requires enabling Public IPs on the NSX-T edge for the private cloud. The functionality associates Azure Public IPs from an Azure Public IP Prefix to the private cloud and configures the Microsoft backbone to route Internet traffic destined those IPs to the private cloud's NSX-T T0/T1 gateways. T1 gateways can then be configured to destination-NAT inbound connections to the private IPs of NVAs attached to NSX-T segments.",
+                                        "link": {
+                                            "label": "Learn more",
+                                            "uri": "https://github.com/Azure/Enterprise-Scale-for-AVS/blob/main/Network%20Design%20Guide/internet-inbound-connectivity.md#nvas-for-application-publishing-hosted-in-azure-vmware-solution-public-ips-on-the-nsx-t-edge"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     ]
                 },
