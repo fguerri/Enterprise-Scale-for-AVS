@@ -237,7 +237,11 @@
                                     "visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ertransit')]",
                                     "type": "Microsoft.Common.TextBlock",
                                     "options": {
-                                        "text": "Connectivity to Azure Virtual Networks already provided by the selected onprem connectivity option."
+                                        "text": "Connectivity to Azure Virtual Networks already provided by the selected onprem connectivity option.",
+                                        "link": {
+                                            "label": "Learn more",
+                                            "uri": "https://github.com/Azure/Enterprise-Scale-for-AVS/blob/main/Network%20Design%20Guide/vnet-connectivity.md#connectivity-with-azure-vnets-when-transit-over-expressroute-private-peering-is-used-for-on-prem-traffic"
+                                        }
                                     }
                                 }
                             ]
