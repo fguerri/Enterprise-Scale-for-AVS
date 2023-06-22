@@ -1,6 +1,7 @@
 {
     "$schema": "<relative path to createFormUI.schema.json>",
 	"view": {
+        "kind": "Form",
         "properties": {
             "title": "AVS Network Design Guide Click-through experience",
             "steps": [
