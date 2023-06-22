@@ -1,0 +1,517 @@
+{
+    "$schema": "<relative path to createFormUI.schema.json>",
+	"handler": "Microsoft.Azure.CreateUIDef",
+	"parameters": {
+		"title": "AVS Network Design Guide Click-through experience",
+		"steps": [
+			{
+				"name": "onprem-connectivity",
+				"label": "Connectivity with on-prem sites",
+				"subLabel": {
+					"preValidation": "Provide deployment prefix for the resource groups and resources that will be created.",
+					"postValidation": "Done"
+				},
+				"bladeTitle": "Connectivity with on-prem sites",
+				"elements": [
+					{
+						"name": "onprem-connectivity-section",
+						"type": "Microsoft.Common.Section",
+						"visible": true,
+						"label": "Select an onprem connectivity option",
+						"elements": [
+							{
+								"name": "onprem-connectivity-option",
+								"type": "Microsoft.Common.OptionsGroup",
+								"visible": true,
+								"label": "Select an onprem connectivity option",
+								"defaultValue": "ergr",
+								"toolTip": "",
+								"constraints": {
+									"required": true,
+									"allowedValues": [
+										{
+											"label": "ExpressRoute Global Reach",
+											"value": "ergr"
+										},
+										{
+											"label": "IPSec VPN",
+											"value": "vpn"
+										},
+										{
+											"label": "Transit over ExpressRoute private peering",
+											"value": "ertransit"
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"name": "ergr-section",
+						"type": "Microsoft.Common.Section",
+						"visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ergr')]",
+						"label": "ExpressRoute Global Reach for connectivity with on-prem sites",
+						"elements": [
+							{
+								"name": "onprem-connectivity-ergr-textblock",
+								"type": "Microsoft.Common.TextBlock",
+								"visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ergr')]",
+								"options": {
+									"text": "ExpressRoute Global Reach is the default hybrid connectivity option supported by Azure VMware Solution. It provides plain layer-3 connectivity between a private cloud and a remote site connected to a customer-managed ExpressRoute circuit, with minimal complexity. The customer-managed ExpressRoute circuit can be used to connect to Azure native services too. However it is possible, for security or bandwidth reservations purposes, to deploy a separate customer-managed circuit exclusively dedicated to Azure VMware Solution traffic.",
+									"link": {
+										"label": "Learn more",
+										"uri": "https://github.com/Azure/Enterprise-Scale-for-AVS/blob/main/Network%20Design%20Guide/onprem-connectivity.md#expressroute-global-reach"
+									}
+								} 
+							}
+						]
+					},
+					{
+						"name": "ipsec-section",
+						"type": "Microsoft.Common.Section",
+						"visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'vpn')]",
+						"label": "Select an IPSec VPN option",
+						"elements": [
+							{
+								"name": "onprem-connectivity-vpn-textblock",
+								"type": "Microsoft.Common.TextBlock",
+								"visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'vpn')]",
+								"options": {
+									"text": "Connectivity between Azure VMware Solution private clouds and on-premises sites can be implemented by routing traffic through a “transit” VNet in Azure. The transit VNet is connected to the Azure VMware Solution private cloud through the managed ExpressRoute circuit. The transit VNet is connected to the on-premises site using an IPSec VPN. Implementing IPSec connectivity between on-premises sites and transit VNets entails three design decisions: (1) Which network service to use as the underlay for the IPSec tunnel. The available options are internet connectivity, ExpressRoute “Microsoft” peering and ExpressRoute “Private” peering; (2) Where to host the virtual devices that terminate the IPSec tunnel on the Azure side. The available options are using a customer-managed VNet or a Virtual WAN hub; (3) Which virtual device terminates the IPSec tunnel on the Azure side. The choice of the device also determines the required Azure configuration to route traffic between the IPSec tunnel and the Azure VMware Solution managed circuit. The available options are native Azure VPN gateway or 3rd party IPSec NVAs.",
+									"link": {
+										"label": "Learn more",
+										"uri": "https://github.com/Azure/Enterprise-Scale-for-AVS/blob/main/Network%20Design%20Guide/onprem-connectivity.md#ipsec-vpns"
+									}
+								} 
+							},
+							{
+								"name": "underlay-option",
+								"type": "Microsoft.Common.OptionsGroup",
+								"label": "Select the underlay for the IPSec VPN",
+								"defaultValue": "internet",
+								"toolTip": "",
+								"constraints": {
+									"required": true,
+									"allowedValues": [
+										{
+											"label": "Internet",
+											"value": "internet"
+										},
+										{
+											"label": "ExpressRoute Microsoft Peering",
+											"value": "ermp"
+										},
+										{
+											"label": "ExpressRoute Private Peering",
+											"value": "erpp"
+										}
+									]
+								}
+							},
+							{
+								"name": "vnet-option",
+								"type": "Microsoft.Common.OptionsGroup",
+								"label": "Select where you want to host the VPN device in Azure",
+								"defaultValue": "vnet",
+								"toolTip": "",
+								"constraints": {
+									"required": true,
+									"allowedValues": [
+										{
+											"label": "Customer-managed Virtual Network",
+											"value": "vnet"
+										},
+										{
+											"label": "Virtual WAN Hub",
+											"value": "vwan"
+										}
+									]
+								}
+							},
+							{
+								"name": "device-option",
+								"type": "Microsoft.Common.OptionsGroup",
+								"label": "Select the underlay for the IPSec VPN",
+								"defaultValue": "azurevpngateway",
+								"toolTip": "",
+								"constraints": {
+									"required": true,
+									"allowedValues": [
+										{
+											"label": "Azure VPN Gateway",
+											"value": "azurevpngateway"
+										},
+										{
+											"label": "Third-party NVA",
+											"value": "nva"
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"name": "ertransit-section",
+						"type": "Microsoft.Common.Section",
+						"visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ertransit')]",
+						"label": "Select an ExpressRoute transit option",
+						"elements": [
+							{
+								"name": "onprem-connectivity-ertransit-textblock",
+								"type": "Microsoft.Common.TextBlock",
+								"visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ertransit')]",
+								"options": {
+									"text": "Two implementation options exist: (1) Single VNet. When using this option, both the customer managed and the Azure VMware Solution managed circuits are connected to the same ExpressRoute Gateway; (2) Auxiliary transit VNet. When using this option, the customer managed ExpressRoute circuit that provides connectivity to the on-premises site is connected to the (typically pre-existing) ExpressRoute Gateway in the hub VNet. The Azure VMware Solution managed circuit is connected to a different ExpressRoute Gateway deployed in an auxiliary transit VNet.",
+									"link": {
+										"label": "Learn more",
+										"uri": "https://github.com/Azure/Enterprise-Scale-for-AVS/blob/main/Network%20Design%20Guide/onprem-connectivity.md#transit-over-expressroute-private-peering"
+									}
+								} 
+							},
+							{
+								"name": "ertransit-option",
+								"type": "Microsoft.Common.OptionsGroup",
+								"label": "Select the ER transit architecture",
+								"defaultValue": "single-vnet",
+								"toolTip": "",
+								"constraints": {
+									"required": true,
+									"allowedValues": [
+										{
+											"label": "Single VNet with supernet advertisment",
+											"value": "single-vnet"
+										},
+										{
+											"label": "Auxiliary VNet",
+											"value": "aux-vnet"
+										}
+									]
+								}
+							}
+						]
+					}
+				]
+			},
+			{
+				"name": "vnet-connectivity",
+				"label": "Connectivity with Azure Virtual Networks",
+				"subLabel": {
+					"preValidation": "preValid",
+					"postValidation": "Done"
+				},
+				"bladeTitle": "Connectivity with Azure Virtual Networks",
+				"elements": [
+					{
+						"name": "vnet-connectivity-section",
+						"type": "Microsoft.Common.Section",
+						"visible": true,
+						"label": "VNet connectivity option",
+						"elements": [
+							{
+								"name": "vnet-connectivity-with-global-reach",
+								"type": "Microsoft.Common.TextBlock",
+								"visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ergr')]",
+								"options": {
+									"text": "Connect AVS Private Cloud to this ExpressRoute Virtual Network Gateway:",
+									"link": {
+										"label": "Learn more",
+										"uri": "https://github.com/Azure/Enterprise-Scale-for-AVS/blob/main/Network%20Design%20Guide/vnet-connectivity.md#design-phase-2-connectivity-with-azure-virtual-networks"
+									}
+								}
+							},
+							{
+								"name": "erGwSelector",
+								"type": "Microsoft.Solutions.ResourceSelector",
+								"label": "Select ExpressRoute Virtual Network Gateway",
+								"resourceType": "Microsoft.Network/virtualNetworkGateways",
+								"visible": "[equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ergr')]",
+								"options": {
+									"filter": {
+									}
+								}
+							},
+							{
+								"name": "vnet-connectivity-ertransit",
+								"type": "Microsoft.Common.OptionsGroup",
+								"visible": "[not(equals(steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option, 'ergr'))]",
+								"type": "Microsoft.Common.TextBlock",
+								"options": {
+									"text": "Connectivity to Azure Virtual Networks already provided by the selected onprem connectivity option.",
+									"link": {
+										"label": "Learn more",
+										"uri": "https://github.com/Azure/Enterprise-Scale-for-AVS/blob/main/Network%20Design%20Guide/vnet-connectivity.md#connectivity-with-azure-vnets-when-transit-over-expressroute-private-peering-is-used-for-on-prem-traffic"
+									}
+								}
+							}
+						]
+					}
+				]
+			},
+			{
+				"name": "internet-inbound-connectivity",
+				"label": "Inbound Internet Connectivity",
+				"subLabel": {
+					"preValidation": "perValid",
+					"postValidation": "Done"
+				},
+				"bladeTitle": "Inbound Internet Connectivity",
+				"elements": [
+					{
+						"name": "internet-inbound-connectivity-section",
+						"type": "Microsoft.Common.Section",
+						"visible": true,
+						"label": "Inbound Internet Connectivity",
+						"elements": [
+							{
+								"name": "internet-inbound-connectivity-option",
+								"type": "Microsoft.Common.OptionsGroup",
+								"visible": true,
+								"label": "Select an onprem connectivity option",
+								"defaultValue": "azure-pip",
+								"toolTip": "",
+								"constraints": {
+									"required": true,
+									"allowedValues": [
+										{
+											"label": "Expose AVS applications on a Public IP associated to an edge device in an Azure Virtual Network",
+											"value": "azure-pip"
+										},
+										{
+											"label": "Expose AVS applications on a Public IP associated to an edge device in AVS",
+											"value": "nsxt-pip"
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"name": "internet-inbound-connectivity-azure-nva-section",
+						"type": "Microsoft.Common.Section",
+						"visible": "[equals(steps('internet-inbound-connectivity').internet-inbound-connectivity-section.internet-inbound-connectivity-option, 'azure-pip')]",
+						"label": "Deploy NVAs in Azure",
+						"elements": [
+							{
+								"name": "internet-inbound-connectivity-azure-nva-textblock",
+								"type": "Microsoft.Common.TextBlock",
+								"visible": "[equals(steps('internet-inbound-connectivity').internet-inbound-connectivity-section.internet-inbound-connectivity-option, 'azure-pip')]",
+								"options": {
+									"text": "Publishing Azure VMware Solution applications via Azure first-party services (Azure Firewall, Azure Application Gateway) or third-party NVAs hosted in a VNet only requires layer-3 connectivity between the VNet and the private cloud. Azure VMware Solution applications are published behind Azure Public IP resources assigned to the first-party service or third-party NVAs. Standalone Public IPs, Public IPs from Public Ip Prefixes or Public IPs from Custom IP Prefixes (BYOIP) can be used.",
+									"link": {
+										"label": "Learn more",
+										"uri": "https://github.com/Azure/Enterprise-Scale-for-AVS/blob/main/Network%20Design%20Guide/internet-inbound-connectivity.md#nvas-for-application-publishing-hosted-in-an-azure-vnet"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "internet-inbound-connectivity-azure-nva-select-section",
+						"type": "Microsoft.Common.Section",
+						"visible": "[equals(steps('internet-inbound-connectivity').internet-inbound-connectivity-section.internet-inbound-connectivity-option, 'azure-pip')]",
+						"label": "Deploy NVAs in Azure",
+						"elements": [
+							{
+								"name": "internet-inbound-connectivity-nva-option",
+								"type": "Microsoft.Common.OptionsGroup",
+								"visible": true,
+								"label": "Select which NVA to deploy in Azure",
+								"defaultValue": "none",
+								"toolTip": "",
+								"constraints": {
+									"required": true,
+									"allowedValues": [
+										{
+											"label": "Azure Firewall",
+											"value": "azfw"
+										},
+										{
+											"label": "Azure Application Gateway",
+											"value": "appgw"
+										},
+										{
+											"label": "I will deploy an NVA later/I will use a third party NVA",
+											"value": "none"
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"name": "internet-inbound-connectivity-avs-nva-section",
+						"type": "Microsoft.Common.Section",
+						"visible": "[equals(steps('internet-inbound-connectivity').internet-inbound-connectivity-section.internet-inbound-connectivity-option, 'nsxt-pip')]",
+						"label": "Deploy NVAs in Azure VMware Solution",
+						"elements": [
+							{
+								"name": "internet-inbound-connectivity-avs-nva-textblock",
+								"type": "Microsoft.Common.TextBlock",
+								"visible": "[equals(steps('internet-inbound-connectivity').internet-inbound-connectivity-section.internet-inbound-connectivity-option, 'nsxt-pip')]",
+								"options": {
+									"text": "Publishing Azure VMware Solution applications via third-party NVAs deployed on Azure VMware Solution requires enabling Public IPs on the NSX-T edge for the private cloud. The functionality associates Azure Public IPs from an Azure Public IP Prefix to the private cloud and configures the Microsoft backbone to route Internet traffic destined those IPs to the private cloud's NSX-T T0/T1 gateways. T1 gateways can then be configured to destination-NAT inbound connections to the private IPs of NVAs attached to NSX-T segments.",
+									"link": {
+										"label": "Learn more",
+										"uri": "https://github.com/Azure/Enterprise-Scale-for-AVS/blob/main/Network%20Design%20Guide/internet-inbound-connectivity.md#nvas-for-application-publishing-hosted-in-azure-vmware-solution-public-ips-on-the-nsx-t-edge"
+									}
+								}
+							}
+						]
+					}
+				]
+			},
+			{
+				"name": "internet-outbound-connectivity",
+				"label": "Outbound Internet Connectivity",
+				"subLabel": {
+					"preValidation": "perValid",
+					"postValidation": "Done"
+				},
+				"bladeTitle": "Outbound Internet Connectivity",
+				"elements": [
+					{
+						"name": "internet-outbound-connectivity-section",
+						"type": "Microsoft.Common.Section",
+						"visible": true,
+						"label": "Outbound Internet Connectivity",
+						"elements": [
+							{
+								"name": "internet-outbound-connectivity-textblock",
+								"type": "Microsoft.Common.TextBlock",
+								"visible": "true",
+								"options": {
+									"text": "Azure VMware Solution supports direct internet access (via platform- or customer-managed public IPs) and internet access through NVAs in Azure.",
+									"link": {
+										"label": "Learn more",
+										"uri": "https://learn.microsoft.com/en-us/azure/azure-vmware/concepts-design-public-internet-access"
+									}
+								} 
+							},
+							{
+								"name": "internet-outbound-connectivity-nva-option",
+								"type": "Microsoft.Common.OptionsGroup",
+								"visible": "[equals(steps('internet-inbound-connectivity').internet-inbound-connectivity-section.internet-inbound-connectivity-option, 'azure-pip')]",
+								"label": "Choose an internet outbound connectivity option",
+								"defaultValue": "managed-pip",
+								"toolTip": "",
+								"constraints": {
+									"required": true,
+									"allowedValues": [
+										{
+											"label": "Internet edge device in Azure",
+											"value": "azure-pip"
+										}, 
+										{
+											"label": "Internet edge device in AVS (Public IP to the NSX-T edge)",
+											"value": "nsxt-pip"
+										},
+										{
+											"label": "AVS Managed SNAT",
+											"value": "managed-pip"
+										}
+									]
+								}
+							},
+							{
+								"name": "internet-outbound-connectivity-nsxt-pip",
+								"type": "Microsoft.Common.TextBlock",
+								"visible": "[equals(steps('internet-inbound-connectivity').internet-inbound-connectivity-section.internet-inbound-connectivity-option, 'nsxt-pip')]",
+								"options": {
+									"text": "As you have selected to use use Public IPs on the NSX-T edge for inbound internet connectivity, you must use them for outbound internet connectivity too."
+								}
+							}
+						]
+					},
+					{
+						"name": "internet-outbound-connectivity-ars-section",
+						"type": "Microsoft.Common.Section",
+						"visible": "[equals(steps('internet-outbound-connectivity').internet-outbound-connectivity-section.internet-outbound-connectivity-nva-option, 'azure-pip')]",
+						"label": "Default Route Origination",
+						"elements": [
+							{
+								"name": "internet-outbound-connectivity-ars-textblock",
+								"type": "Microsoft.Common.TextBlock",
+								"visible": "true",
+								"options": {
+									"text": "Internet-bound traffic emitted by Azure VMware Solution virtual machines can be routed to an Azure-native NVA by announcing a default route over the private cloud's managed ExpressRoute circuit. The private cloud's T0 gateways will honor the default route received from Azure and will send Internet-bound traffic to the next hop specified by the received default route. If the Internet edge NVAs in Azure support BGP, then they can be used as BGP speakers to originate the default route. If the NVAs do not support BGP (or cannot be used as BGP speakers due to security-related constraints), additional NVAs can be deployed to act as BGP speakers.",
+									"link": {
+										"label": "Learn more",
+										"uri": "https://github.com/Azure/Enterprise-Scale-for-AVS/blob/main/Network%20Design%20Guide/internet-outbound-connectivity.md#default-routes-and-outbound-internet-connectivity-in-azure-vmware-solution"
+									}
+								} 
+							},
+							{
+								"name": "internet-outbound-connectivity-ars-option",
+								"type": "Microsoft.Common.OptionsGroup",
+								"visible": true,
+								"label": "Default Route Origination",
+								"defaultValue": "none",
+								"toolTip": "",
+								"constraints": {
+									"required": true,
+									"allowedValues": [
+										{
+											"label": "Deploy Azure Route Server",
+											"value": "ars"
+										}, 
+										{
+											"label": "I will deploy Azure Route Server later/I have already deployed Azure Route Server",
+											"value": "none"
+										}
+									]
+								}
+							}   
+						]
+					},
+					{
+						"name": "internet-outbound-connectivity-nsxt-pip-section",
+						"type": "Microsoft.Common.Section",
+						"visible": "[equals(steps('internet-outbound-connectivity').internet-outbound-connectivity-section.internet-outbound-connectivity-nva-option, 'nsxt-pip')]",
+						"label": "Outbound Internet connectivity through Public IPs to the NSX-T Edge",
+						"elements": [
+							{
+								"name": "internet-outbound-connectivity-nsxt-pip-textblock",
+								"type": "Microsoft.Common.TextBlock",
+								"visible": "true",
+								"options": {
+									"text": "When Public IPs to the NSX-T edge are configured, a default route that forwards traffic from T1/T0 gateways towards the Azure network's Internet edge exists in the private cloud. Outbound Internet connections must be source-NATted on T1 gateways using one of the Public IPs associated to the private cloud. Detailed instructions on how to configure NAT rules on T1 gateways are provided in the official documentation.",
+									"link": {
+										"label": "Learn more",
+										"uri": "https://learn.microsoft.com/azure/azure-vmware/enable-public-ip-nsx-edge#outbound-internet-access-for-vms"
+									}
+								} 
+							}
+						]
+					},
+					{
+						"name": "internet-outbound-connectivity-managed-pip-section",
+						"type": "Microsoft.Common.Section",
+						"visible": "[equals(steps('internet-outbound-connectivity').internet-outbound-connectivity-section.internet-outbound-connectivity-nva-option, 'managed-pip')]",
+						"label": "Outbound Internet connectivity through managed SNAT",
+						"elements": [
+							{
+								"name": "internet-outbound-connectivity-managed-pip-textblock",
+								"type": "Microsoft.Common.TextBlock",
+								"visible": "true",
+								"options": {
+									"text": "Managed source-NAT is the lowest complexity option for outbound Internet access in Azure VMware Solution. When enabled on a private cloud, a default route in installed on T0/T1 gateways that forwards Internet-bound traffic to a platform-managed edge. The platform managed edge performs source-NAT. Users have no control on the NAT pool. Managed source-NAT can be used to provide direct Internet access to Azure VMware Solution virtual machines.",
+									"link": {
+										"label": "Learn more",
+										"uri": "https://learn.microsoft.com/azure/azure-vmware/enable-public-ip-nsx-edge#outbound-internet-access-for-vms"
+									}
+								} 
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	"outputs": {
+		"parameters": {
+			"onprem-connectivity-option": "[steps('onprem-connectivity').onprem-connectivity-section.onprem-connectivity-option]",
+			"ipsec-option": "[steps('onprem-connectivity').ipsec-section.underlay-option]"           
+		},
+		"kind": "Subscription"
+	}
+}
